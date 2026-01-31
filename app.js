@@ -1,15 +1,7 @@
 const fileInput = document.querySelector("#file__input");
 const preview = document.querySelector(".preview");
 fileInput.addEventListener("change", (e) => {
-  createImg(e.target.files);
-  preview.textContent = "";
-});
-
-function createImg(files) {
-  let i = 0;
-  while (i >= 0) {
-    let file = files[i];
-    console.log(file);
+  [...e.target.files].forEach((file)=>{
     const reader = new FileReader();
     reader.addEventListener("load", () => {
       const prevImg = document.createElement("img");
@@ -19,9 +11,6 @@ function createImg(files) {
     });
     if (file) {
       reader.readAsDataURL(file);
-      i++;
-    } else {
-      i = -1;
     }
-  }
-}
+  })
+});
